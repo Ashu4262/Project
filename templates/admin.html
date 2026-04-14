@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="card">
+  <h2>Admin - All Bookings</h2>
+  {% if bookings %}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Client</th>
+          <th>Service</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Phone</th>
+          <th>Notes</th>
+          <th>Created</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+          <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.client_name }}</td>
+            <td>{{ booking.service_name }}</td>
+            <td>{{ booking.appointment_date }}</td>
+            <td>{{ booking.appointment_time }}</td>
+            <td>{{ booking.phone }}</td>
+            <td>{{ booking.notes or '-' }}</td>
+            <td>{{ booking.created_at }}</td>
+            <td>
+              <form method="post" action="{{ url_for('delete_booking', booking_id=booking.id) }}">
+                <button class="danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No bookings available.</p>
+  {% endif %}
+</section>
+{% endblock %}
