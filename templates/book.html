@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="card form-card">
+  <h2>Book an Appointment</h2>
+  <form method="post">
+    <label>
+      Full Name*
+      <input type="text" name="client_name" required />
+    </label>
+
+    <label>
+      Phone Number*
+      <input type="tel" name="phone" required />
+    </label>
+
+    <label>
+      Service*
+      <select name="service_id" required>
+        <option value="">-- Select service --</option>
+        {% for service in services %}
+          <option value="{{ service.id }}">
+            {{ service.name }} ({{ service.duration_minutes }} mins, ${{ '%.2f'|format(service.price_usd) }})
+          </option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>
+      Appointment Date*
+      <input type="date" name="appointment_date" required />
+    </label>
+
+    <label>
+      Appointment Time*
+      <input type="time" name="appointment_time" required />
+    </label>
+
+    <label>
+      Notes
+      <textarea name="notes" rows="3" placeholder="Any special requests?"></textarea>
+    </label>
+
+    <button type="submit">Confirm Booking</button>
+  </form>
+</section>
+{% endblock %}
